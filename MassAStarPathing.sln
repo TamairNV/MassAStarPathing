@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassAStarPathing", "MassAStarPathing\MassAStarPathing.csproj", "{8D2B65FC-0E79-4EE6-9DCF-D1237B93B89B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D2B65FC-0E79-4EE6-9DCF-D1237B93B89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D2B65FC-0E79-4EE6-9DCF-D1237B93B89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D2B65FC-0E79-4EE6-9DCF-D1237B93B89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D2B65FC-0E79-4EE6-9DCF-D1237B93B89B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
