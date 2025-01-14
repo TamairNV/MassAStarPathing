@@ -14,9 +14,12 @@ public class Agent
     public Raylib_cs.Color Color = Color.Red;
     public Target Target;
     public Cluster CurrentCluster;
-    public List<Vector2> Path;
+    public List<Node> Path;
     public float speed = 20;
     public int PathI = 2;
+
+    private Node currentNode;
+    private Node lastNode;
 
     public Agent(Vector2 worldPosition,Grid grid)
     {
@@ -27,30 +30,32 @@ public class Agent
 
     private void moveThroughPath(float deltaTime)
     {
-        if (Path != null)
-        {
-            Vector2 dir = Path[0];
+
+            Vector2 dir = Path[0].worldPos;
             if (Path.Count < 2)
             {
                  dir = Normalize(worldPosition - Target.worldPosition);
             }
             else if(PathI < Path.Count)
             {
-                if (Vector2.Distance(worldPosition, Path[^PathI]) < CurrentCluster.nodeSize/2)
+                if (Vector2.Distance(worldPosition, Path[^PathI].worldPos) < CurrentCluster.nodeSize/2)
                 {
                     PathI++;
                 }
-                dir = Normalize(worldPosition - Path[^PathI]);
+                dir = Normalize(worldPosition - Path[^PathI].worldPos);
 
             }
             else
             {
                 return;
             }
-            worldPosition += -dir * speed * deltaTime;
 
 
-        }
+            
+            worldPosition += (-dir * speed * deltaTime);
+
+
+        
 
 
 
@@ -58,7 +63,15 @@ public class Agent
 
     private void update(float deltaTime)
     {
-        moveThroughPath(deltaTime);
+        if (Path != null)
+        {
+
+            moveThroughPath(deltaTime);
+            
+        }
+
+
+        
     }
 
     public static void updateAgents(float deltaTime)

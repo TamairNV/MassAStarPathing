@@ -42,7 +42,12 @@ public class Cluster
         priorityQueue.Enqueue(startNode,0);
         foreach (var agent in Agents)
         {
-            AgentNodes.Add(Grid[(int)(agent.worldPosition.X / nodeSize), (int)(agent.worldPosition.Y / nodeSize)]);
+            
+            Node agentNode = Grid[(int)(agent.worldPosition.X / nodeSize), (int)(agent.worldPosition.Y / nodeSize)];
+            AgentNodes.Add(agentNode);
+            agentNode.ResetNode(MassAStarPathing.Grid.PathID,0);
+            agentNode.Discomfort -= 10f;
+            
         }
         while (!IsDone() && priorityQueue.Count > 0)
         {
@@ -69,13 +74,15 @@ public class Cluster
     }
     private void getPath(Agent agent)
     {
-        agent.Path = new List<Vector2>();
+        agent.Path = new List<Node>();
         Node currentNode = Grid[(int)(agent.worldPosition.X / nodeSize), (int)(agent.worldPosition.Y / nodeSize)];
         while (currentNode != null)
         {
             
             currentNode.state = 7;
-            agent.Path.Add( Vector2.Multiply(new Vector2(currentNode.gridPosition.X,currentNode.gridPosition.Y),nodeSize));
+            currentNode.worldPos = Vector2.Multiply(new Vector2(currentNode.gridPosition.X, currentNode.gridPosition.Y),
+                nodeSize);
+            agent.Path.Add(currentNode );
             
             currentNode = currentNode.aStarParent;
         }

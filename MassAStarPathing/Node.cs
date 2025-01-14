@@ -6,16 +6,17 @@ public class Node
 {
     public IntVector2 gridPosition;
     public List<Connection> Children = new List<Connection>();
- 
+    public Vector2 worldPos;
     public int state = 1;
     public Node aStarParent = null;
-    public List<Node> Path;
 
     public int PathID;
 
     private float fCost;
     private float hCost;
     private float gCost;
+    public float Discomfort = 0;
+    private float speedMultiplier = 1;
 
     public Node(int x , int y)
     {
@@ -29,10 +30,10 @@ public class Node
         fCost = 0;
         hCost = 0;
         gCost = 0;
-        Path = new List<Node>();
         PathID = pathID;
         this.state = state;
         aStarParent = null;
+        Discomfort = 0;
     }
 
     private float AStarHCostCal(Vector2 endnode)
@@ -66,13 +67,13 @@ public class Node
             {
                 currentNode.state = 1;
                 currentNode.hCost = AStarHCostCal(new Vector2(agentNodes[0].gridPosition.X,agentNodes[0].gridPosition.Y));
-                currentNode.gCost = gCost + child.Distance;
-                currentNode.fCost = currentNode.hCost*1.15f + currentNode.gCost;
+                currentNode.gCost = gCost + child.Distance+Discomfort*10;
+                currentNode.fCost = currentNode.hCost*1.15f + currentNode.gCost ;
                 priorityQueue.Enqueue(currentNode,currentNode.fCost);
                 currentNode.aStarParent = this;
             }
             
-            else if (currentNode.state == 1 && gCost + child.Distance < currentNode.gCost)
+            else if (currentNode.state == 1 && gCost + child.Distance  < currentNode.gCost)
             {
                 currentNode.gCost = gCost + child.Distance;
                 currentNode.fCost = currentNode.hCost + currentNode.gCost;
@@ -85,7 +86,7 @@ public class Node
 }
 
 
-public struct Connection
+public class Connection
 {
     public Node Child;
     public float Distance;
