@@ -52,10 +52,11 @@ public class Node
         
         state = 2;
         baseGraph.grid[gridPosition.X,gridPosition.Y].PathID = PathID;
-       
+
         
         foreach (var child in baseGraph.grid[gridPosition.X,gridPosition.Y].Children)
         {
+
             Node currentNode = graph[child.Child.gridPosition.X,child.Child.gridPosition.Y];
 
             if (child.Child.PathID != ID )
@@ -63,19 +64,24 @@ public class Node
                 child.Child.PathID = ID;
                 currentNode.ResetNode(ID,baseGraph.grid[gridPosition.X,gridPosition.Y].state);
             }
+
+            if (agentNodes.Contains(currentNode))
+            {
+                currentNode.Discomfort += 10;
+            }
             if (currentNode.state == 0)
             {
                 currentNode.state = 1;
                 currentNode.hCost = AStarHCostCal(new Vector2(agentNodes[0].gridPosition.X,agentNodes[0].gridPosition.Y));
-                currentNode.gCost = gCost + child.Distance+Discomfort*10;
+                currentNode.gCost = gCost + child.Distance + (currentNode.Discomfort*100);
                 currentNode.fCost = currentNode.hCost*1.15f + currentNode.gCost ;
                 priorityQueue.Enqueue(currentNode,currentNode.fCost);
                 currentNode.aStarParent = this;
             }
             
-            else if (currentNode.state == 1 && gCost + child.Distance  < currentNode.gCost)
+            else if (currentNode.state == 1 && gCost + child.Distance  < currentNode.gCost +(currentNode.Discomfort*100))
             {
-                currentNode.gCost = gCost + child.Distance;
+                currentNode.gCost = gCost + child.Distance +(currentNode.Discomfort*100);
                 currentNode.fCost = currentNode.hCost + currentNode.gCost;
                 currentNode.aStarParent = this;
             }

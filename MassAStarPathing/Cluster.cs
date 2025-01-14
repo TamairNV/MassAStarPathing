@@ -46,7 +46,7 @@ public class Cluster
             Node agentNode = Grid[(int)(agent.worldPosition.X / nodeSize), (int)(agent.worldPosition.Y / nodeSize)];
             AgentNodes.Add(agentNode);
             agentNode.ResetNode(MassAStarPathing.Grid.PathID,0);
-            agentNode.Discomfort -= 10f;
+            agentNode.Discomfort += 10f;
             
         }
         while (!IsDone() && priorityQueue.Count > 0)

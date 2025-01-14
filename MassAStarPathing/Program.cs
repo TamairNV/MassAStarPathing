@@ -22,7 +22,7 @@ class Program
         Grid grid = new Grid(85, 45);
         Painter painter = new Painter(grid, 15);
 
-        float targetInter = 1 / 5f;
+        float targetInter = 1 / 1f;
         float timer = 0;
         
         while (!Raylib.WindowShouldClose())
