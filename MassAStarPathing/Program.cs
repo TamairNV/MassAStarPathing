@@ -22,7 +22,7 @@ class Program
         Grid grid = new Grid(85, 45);
         Painter painter = new Painter(grid, 15);
 
-        float targetInter = 1 / 1f;
+        float targetInter = 1 / 00.5f;
         float timer = 0;
         
         while (!Raylib.WindowShouldClose())
@@ -31,7 +31,7 @@ class Program
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.RayWhite);
             painter.Draw();
-            Agent.updateAgents(deltaTime);
+            
 
             timer += deltaTime;
             if (timer >= targetInter)
@@ -44,6 +44,7 @@ class Program
                     }
                     
                 }
+                Agent.updateAgents(deltaTime);
 
                 timer = 0;
             }

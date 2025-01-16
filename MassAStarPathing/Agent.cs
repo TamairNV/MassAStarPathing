@@ -30,7 +30,7 @@ public class Agent
 
     private void moveThroughPath(float deltaTime)
     {
-
+            /*
             Vector2 dir = Path[0].worldPos;
             if (Path.Count < 2)
             {
@@ -49,13 +49,14 @@ public class Agent
             {
                 return;
             }
-
-
-            
             worldPosition += (-dir * speed * deltaTime);
+            */
 
+            currentNode = Grid.grid[(int)(worldPosition.X/CurrentCluster.nodeSize),(int)(worldPosition.Y/CurrentCluster.nodeSize)];
+            worldPosition = new Vector2(currentNode.aStarParent.gridPosition.X,currentNode.aStarParent.gridPosition.Y) *
+                            new Vector2(CurrentCluster.nodeSize, CurrentCluster.nodeSize);
+            
 
-        
 
 
 
